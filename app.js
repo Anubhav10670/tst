@@ -1,4 +1,4 @@
-document.getElementById('convertButton').addEventListener('click', async () => {
+git document.getElementById('convertButton').addEventListener('click', async () => {
     const fileInput = document.getElementById('pdfFile');
     const file = fileInput.files[0];
     if (!file) {
@@ -19,7 +19,9 @@ document.getElementById('convertButton').addEventListener('click', async () => {
             textContent += textContentPage.items.map(item => item.str).join(' ') + ' ';
         }
 
-        const worker = Tesseract.createWorker();
+        const worker = Tesseract.createWorker({
+            logger: m => console.log(m)
+        });
         await worker.load();
         await worker.loadLanguage('eng');
         await worker.initialize('eng');
