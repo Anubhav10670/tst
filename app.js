@@ -8,8 +8,9 @@ document.getElementById('convertButton').addEventListener('click', async () => {
 
     const reader = new FileReader();
     reader.onload = async function(e) {
-        const pdfData = e.target.result;
-        const pdf = await pdfjsLib.getDocument({ data: pdfData }).promise;
+        const pdfData = new Uint8Array(e.target.result);
+        const loadingTask = pdfjsLib.getDocument({ data: pdfData });
+        const pdf = await loadingTask.promise;
         let textContent = '';
 
         for (let i = 1; i <= pdf.numPages; i++) {
